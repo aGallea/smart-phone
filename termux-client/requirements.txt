@@ -1,0 +1,6 @@
+# Termux Client Requirements
+pyaudio==0.2.11
+aiohttp==3.8.5
+asyncio-mqtt==0.13.0
+numpy==1.24.3
+wave
