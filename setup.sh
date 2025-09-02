@@ -14,19 +14,19 @@ command_exists() {
 setup_python_env() {
     local dir=$1
     echo "Setting up Python environment for $dir..."
-    
+
     cd "$dir"
-    
+
     if [ ! -d "venv" ]; then
         python3 -m venv venv
         echo "✅ Created virtual environment"
     fi
-    
+
     source venv/bin/activate
     pip install --upgrade pip
     pip install -r requirements.txt
     echo "✅ Installed Python dependencies"
-    
+
     cd ..
 }
 
@@ -34,11 +34,11 @@ setup_python_env() {
 setup_node_env() {
     local dir=$1
     echo "Setting up Node.js environment for $dir..."
-    
+
     cd "$dir"
     npm install
     echo "✅ Installed Node.js dependencies"
-    
+
     cd ..
 }
 

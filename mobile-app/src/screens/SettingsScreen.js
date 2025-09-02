@@ -92,7 +92,7 @@ const SettingsScreen = () => {
       <Card style={styles.card}>
         <Card.Content>
           <Title>App Settings</Title>
-          
+
           <View style={styles.settingRow}>
             <View style={styles.settingText}>
               <Paragraph>Dark Mode</Paragraph>
@@ -138,7 +138,7 @@ const SettingsScreen = () => {
       <Card style={styles.card}>
         <Card.Content>
           <Title>Configuration Management</Title>
-          
+
           <Button
             mode="outlined"
             onPress={handleExportConfig}
@@ -172,19 +172,19 @@ const SettingsScreen = () => {
       <Card style={styles.card}>
         <Card.Content>
           <Title>About</Title>
-          
+
           <List.Item
             title="Version"
             description="1.0.0"
             left={(props) => <List.Icon {...props} icon="information" />}
           />
-          
+
           <List.Item
             title="Developer"
             description="Smart Robot Team"
             left={(props) => <List.Icon {...props} icon="account" />}
           />
-          
+
           <List.Item
             title="License"
             description="MIT License"
@@ -197,7 +197,7 @@ const SettingsScreen = () => {
       <Card style={styles.card}>
         <Card.Content>
           <Title>Support</Title>
-          
+
           <Button
             mode="outlined"
             onPress={() => Alert.alert('Help', 'Help documentation will be available soon')}
@@ -233,7 +233,7 @@ const SettingsScreen = () => {
           <Dialog.Title>Reset Configuration</Dialog.Title>
           <Dialog.Content>
             <Paragraph>
-              Are you sure you want to reset all configuration to default values? 
+              Are you sure you want to reset all configuration to default values?
               This action cannot be undone.
             </Paragraph>
           </Dialog.Content>

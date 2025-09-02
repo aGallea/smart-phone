@@ -59,7 +59,7 @@ const MonitoringScreen = () => {
   }
 
   return (
-    <ScrollView 
+    <ScrollView
       style={styles.container}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -71,7 +71,7 @@ const MonitoringScreen = () => {
           <Title>Connection Status</Title>
           <View style={styles.statusRow}>
             <Paragraph>Backend Server:</Paragraph>
-            <Chip 
+            <Chip
               style={[styles.statusChip, { backgroundColor: getStatusColor(isConnected) }]}
               textStyle={{ color: 'white' }}
             >
@@ -89,7 +89,7 @@ const MonitoringScreen = () => {
             <>
               <View style={styles.statusRow}>
                 <Paragraph>Speech-to-Text:</Paragraph>
-                <Chip 
+                <Chip
                   style={[styles.statusChip, { backgroundColor: getStatusColor(status.services?.stt) }]}
                   textStyle={{ color: 'white' }}
                 >
@@ -98,7 +98,7 @@ const MonitoringScreen = () => {
               </View>
               <View style={styles.statusRow}>
                 <Paragraph>Text-to-Speech:</Paragraph>
-                <Chip 
+                <Chip
                   style={[styles.statusChip, { backgroundColor: getStatusColor(status.services?.tts) }]}
                   textStyle={{ color: 'white' }}
                 >
@@ -107,7 +107,7 @@ const MonitoringScreen = () => {
               </View>
               <View style={styles.statusRow}>
                 <Paragraph>LLM Service:</Paragraph>
-                <Chip 
+                <Chip
                   style={[styles.statusChip, { backgroundColor: getStatusColor(status.services?.llm) }]}
                   textStyle={{ color: 'white' }}
                 >

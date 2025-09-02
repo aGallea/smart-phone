@@ -53,7 +53,7 @@ const HomeScreen = () => {
         <Card.Content>
           <Title>Connection Status</Title>
           <View style={styles.statusContainer}>
-            <Chip 
+            <Chip
               icon={isConnected ? 'check-circle' : 'alert-circle'}
               style={[
                 styles.statusChip,
@@ -64,8 +64,8 @@ const HomeScreen = () => {
               {isConnected ? 'Connected' : 'Disconnected'}
             </Chip>
             {!isConnected && (
-              <Button 
-                mode="contained" 
+              <Button
+                mode="contained"
                 onPress={connect}
                 style={styles.connectButton}
               >

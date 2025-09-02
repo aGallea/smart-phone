@@ -36,8 +36,8 @@ export default function App() {
                 },
               }}
             >
-              <Tab.Screen 
-                name="Home" 
+              <Tab.Screen
+                name="Home"
                 component={HomeScreen}
                 options={{
                   tabBarIcon: ({ color, size }) => (
@@ -46,8 +46,8 @@ export default function App() {
                   title: 'Smart Robot'
                 }}
               />
-              <Tab.Screen 
-                name="Monitor" 
+              <Tab.Screen
+                name="Monitor"
                 component={MonitoringScreen}
                 options={{
                   tabBarIcon: ({ color, size }) => (
@@ -56,8 +56,8 @@ export default function App() {
                   title: 'Monitoring'
                 }}
               />
-              <Tab.Screen 
-                name="Config" 
+              <Tab.Screen
+                name="Config"
                 component={ConfigScreen}
                 options={{
                   tabBarIcon: ({ color, size }) => (
@@ -66,8 +66,8 @@ export default function App() {
                   title: 'Configuration'
                 }}
               />
-              <Tab.Screen 
-                name="Settings" 
+              <Tab.Screen
+                name="Settings"
                 component={SettingsScreen}
                 options={{
                   tabBarIcon: ({ color, size }) => (

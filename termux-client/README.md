@@ -2,7 +2,7 @@
 
 This component runs on an old smartphone via Termux and handles:
 - Audio recording via microphone
-- Audio playback via speakers  
+- Audio playback via speakers
 - Voice command processing
 - Communication with backend server
 

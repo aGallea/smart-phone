@@ -31,7 +31,7 @@ Copy `config.json.example` to `config.json` and configure:
     "openai_api_key": "your-openai-api-key"
   },
   "tts": {
-    "provider": "openai", 
+    "provider": "openai",
     "openai_api_key": "your-openai-api-key",
     "voice": "alloy"
   },
@@ -136,7 +136,7 @@ AZURE_SPEECH_REGION=your-azure-region
 - `config.py` - Configuration management
 - `services/` - Service implementations
   - `stt_service.py` - Speech-to-Text service
-  - `tts_service.py` - Text-to-Speech service  
+  - `tts_service.py` - Text-to-Speech service
   - `llm_service.py` - LLM service
 - `models/` - Pydantic models
   - `requests.py` - Request models

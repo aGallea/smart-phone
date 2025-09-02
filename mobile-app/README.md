@@ -12,7 +12,7 @@ React Native/Expo mobile application for managing and controlling the Smart Robo
 ## Setup
 
 ### Prerequisites
-- Node.js 16+ 
+- Node.js 16+
 - Expo CLI (`npm install -g expo-cli`)
 - Expo Go app on your phone (for development)
 
@@ -40,7 +40,7 @@ React Native/Expo mobile application for managing and controlling the Smart Robo
 # Build APK (Android)
 expo build:android
 
-# Build IPA (iOS) 
+# Build IPA (iOS)
 expo build:ios
 ```
 
@@ -64,7 +64,7 @@ Configure API keys for AI services:
 - Robot control buttons
 - System status overview
 
-### Monitoring Screen  
+### Monitoring Screen
 - Real-time service status
 - System logs
 - Performance metrics
