@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  backend:
+    build: 
+      context: ./backend-server
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONPATH=/app
+    volumes:
+      - ./backend-server/config.json:/app/config.json
+      - ./backend-server/logs:/app/logs
+    restart: unless-stopped
+    networks:
+      - smart-robot-network
+
+  # Optional: Redis for caching (if needed)
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    networks:
+      - smart-robot-network
+
+  # Optional: Database (if needed for logging/analytics)
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: smart_robot
+      POSTGRES_USER: robot_user
+      POSTGRES_PASSWORD: robot_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - smart-robot-network
+
+networks:
+  smart-robot-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
