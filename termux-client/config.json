@@ -1,0 +1,25 @@
+{
+  "backend_url": "http://192.168.1.100:8000",
+  "wake_word_enabled": true,
+  "wake_word": "hey robot",
+  "audio": {
+    "sample_rate": 16000,
+    "channels": 1,
+    "chunk_size": 1024,
+    "recording_duration": 5.0
+  },
+  "voice": {
+    "voice_activation_threshold": 0.01,
+    "silence_timeout": 2.0,
+    "max_recording_duration": 30.0
+  },
+  "assistant": {
+    "name": "Robot",
+    "personality": "helpful and friendly",
+    "language": "en"
+  },
+  "logging": {
+    "level": "INFO",
+    "file": "robot_client.log"
+  }
+}
