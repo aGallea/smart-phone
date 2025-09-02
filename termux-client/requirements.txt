@@ -1,6 +1,25 @@
 # Termux Client Requirements
-pyaudio==0.2.11
-aiohttp==3.8.5
-asyncio-mqtt==0.13.0
-numpy==1.24.3
-wave
+# For Python 3.8-3.12 compatibility
+
+# Audio handling - Multiple options for different systems
+# Try in order: pyaudio -> sounddevice -> simpleaudio
+sounddevice==0.4.6
+simpleaudio==1.0.4
+numpy==1.26.4
+
+# Alternative: pyaudio (may fail on some systems)
+# Uncomment the line below if pyaudio installs successfully:
+# pyaudio==0.2.14
+
+# Async HTTP client
+aiohttp==3.9.3
+
+# MQTT client (optional)
+asyncio-mqtt==0.16.1
+
+# For Python 3.12 compatibility
+typing-extensions>=4.9.0
+
+# Additional audio dependencies for Termux
+# These may need to be installed via pkg in Termux:
+# pkg install portaudio pulseaudio

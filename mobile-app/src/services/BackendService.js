@@ -32,11 +32,11 @@ export const BackendProvider = ({ children }) => {
     const headers = {
       'Content-Type': 'application/json',
     };
-    
+
     if (apiKey) {
       headers['Authorization'] = `Bearer ${apiKey}`;
     }
-    
+
     return headers;
   };
 
@@ -64,11 +64,11 @@ export const BackendProvider = ({ children }) => {
       return response;
     } catch (error) {
       clearTimeout(timeoutId);
-      
+
       if (error.name === 'AbortError') {
         throw new Error('Request timeout');
       }
-      
+
       throw error;
     }
   };
@@ -78,7 +78,7 @@ export const BackendProvider = ({ children }) => {
     try {
       const response = await makeRequest('/health');
       const data = await response.json();
-      
+
       if (data.status === 'healthy') {
         setIsConnected(true);
         await getStatus();
@@ -127,11 +127,11 @@ export const BackendProvider = ({ children }) => {
       });
 
       const data = await response.json();
-      
+
       // Add to logs
       addLog('info', `Command sent: ${command}`);
       addLog('info', `Response: ${data.response}`);
-      
+
       return data.response;
     } catch (error) {
       addLog('error', `Command failed: ${error.message}`);
@@ -233,7 +233,7 @@ export const BackendProvider = ({ children }) => {
       level,
       message,
     };
-    
+
     setLogs(prevLogs => [log, ...prevLogs.slice(0, 99)]); // Keep last 100 logs
   };
 

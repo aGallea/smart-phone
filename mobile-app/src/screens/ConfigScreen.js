@@ -81,7 +81,7 @@ const ConfigScreen = () => {
       <Card style={styles.card}>
         <Card.Content>
           <Title>AI Services</Title>
-          
+
           {/* OpenAI Configuration */}
           <List.Subheader>OpenAI</List.Subheader>
           <TextInput
@@ -99,9 +99,9 @@ const ConfigScreen = () => {
             style={styles.input}
             placeholder="gpt-3.5-turbo"
           />
-          
+
           <Divider style={styles.divider} />
-          
+
           {/* TTS Configuration */}
           <List.Subheader>Text-to-Speech</List.Subheader>
           <TextInput
@@ -126,7 +126,7 @@ const ConfigScreen = () => {
       <Card style={styles.card}>
         <Card.Content>
           <Title>Robot Settings</Title>
-          
+
           <View style={styles.switchRow}>
             <Paragraph>Wake Word Enabled</Paragraph>
             <Switch
@@ -134,7 +134,7 @@ const ConfigScreen = () => {
               onValueChange={(value) => updateField('robot', 'wakeWordEnabled', value)}
             />
           </View>
-          
+
           <TextInput
             label="Wake Word"
             value={localConfig.robot?.wakeWord || ''}
@@ -142,7 +142,7 @@ const ConfigScreen = () => {
             style={styles.input}
             placeholder="hey robot"
           />
-          
+
           <TextInput
             label="Assistant Name"
             value={localConfig.robot?.name || ''}
@@ -150,7 +150,7 @@ const ConfigScreen = () => {
             style={styles.input}
             placeholder="Robot"
           />
-          
+
           <TextInput
             label="System Prompt"
             value={localConfig.robot?.systemPrompt || ''}
@@ -167,7 +167,7 @@ const ConfigScreen = () => {
       <Card style={styles.card}>
         <Card.Content>
           <Title>Audio Settings</Title>
-          
+
           <TextInput
             label="Sample Rate"
             value={localConfig.audio?.sampleRate?.toString() || ''}
@@ -176,7 +176,7 @@ const ConfigScreen = () => {
             placeholder="16000"
             keyboardType="numeric"
           />
-          
+
           <TextInput
             label="Recording Duration (seconds)"
             value={localConfig.audio?.recordingDuration?.toString() || ''}
@@ -185,7 +185,7 @@ const ConfigScreen = () => {
             placeholder="5.0"
             keyboardType="numeric"
           />
-          
+
           <View style={styles.switchRow}>
             <Paragraph>Continuous Listening</Paragraph>
             <Switch

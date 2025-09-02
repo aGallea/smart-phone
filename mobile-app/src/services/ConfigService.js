@@ -113,13 +113,13 @@ export const ConfigProvider = ({ children }) => {
       const configString = JSON.stringify(config, null, 2);
       const fileName = `smart_robot_config_${new Date().toISOString().split('T')[0]}.json`;
       const fileUri = FileSystem.documentDirectory + fileName;
-      
+
       await FileSystem.writeAsStringAsync(fileUri, configString);
-      
+
       if (await Sharing.isAvailableAsync()) {
         await Sharing.shareAsync(fileUri);
       }
-      
+
       return fileUri;
     } catch (error) {
       console.error('Error exporting config:', error);
@@ -137,10 +137,10 @@ export const ConfigProvider = ({ children }) => {
       if (result.type === 'success') {
         const configString = await FileSystem.readAsStringAsync(result.uri);
         const importedConfig = JSON.parse(configString);
-        
+
         // Validate config structure
         const validatedConfig = { ...DEFAULT_CONFIG, ...importedConfig };
-        
+
         await updateConfig(validatedConfig);
         return validatedConfig;
       }
@@ -153,7 +153,7 @@ export const ConfigProvider = ({ children }) => {
   const getConfigValue = (path, defaultValue = null) => {
     const keys = path.split('.');
     let value = config;
-    
+
     for (const key of keys) {
       if (value && typeof value === 'object' && key in value) {
         value = value[key];
@@ -161,7 +161,7 @@ export const ConfigProvider = ({ children }) => {
         return defaultValue;
       }
     }
-    
+
     return value;
   };
 
@@ -169,7 +169,7 @@ export const ConfigProvider = ({ children }) => {
     const keys = path.split('.');
     const newConfig = { ...config };
     let current = newConfig;
-    
+
     for (let i = 0; i < keys.length - 1; i++) {
       const key = keys[i];
       if (!(key in current) || typeof current[key] !== 'object') {
@@ -177,9 +177,9 @@ export const ConfigProvider = ({ children }) => {
       }
       current = current[key];
     }
-    
+
     current[keys[keys.length - 1]] = value;
-    
+
     return await updateConfig(newConfig);
   };
 
