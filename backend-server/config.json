@@ -5,9 +5,8 @@
     "reload": false
   },
   "stt": {
-    "provider": "openai",
-    "openai_api_key": "your-openai-api-key-here",
-    "model": "whisper-1"
+    "provider": "whisper",
+    "whisper_model": "base"
   },
   "tts": {
     "provider": "openai",

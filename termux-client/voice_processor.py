@@ -19,7 +19,7 @@ class VoiceProcessor:
     def __init__(self, audio_handler: AudioHandler, backend_client: BackendClient):
         self.audio_handler = audio_handler
         self.backend_client = backend_client
-        self.wake_word = "hey robot"
+        self.wake_word = "JARVIS"
         self.is_listening = False
         self.last_activity_time = time.time()
 
@@ -27,15 +27,19 @@ class VoiceProcessor:
         """Listen for wake word activation"""
         try:
             # Record short audio clip for wake word detection
-            audio_data = await self.audio_handler.record_audio(duration=2.0)
+            audio_data = self.audio_handler.record_voice_until_silence()
+            # audio_data = await self.audio_handler.record_audio(duration=2.0)
             if not audio_data:
                 return
+            # for debugging, play back the recorded audio
+            await self.audio_handler.play_audio(audio_data)
 
             # Convert to text and check for wake word
-            text = await self.backend_client.speech_to_text(audio_data)
-            if text and self.wake_word.lower() in text.lower():
-                logger.info("Wake word detected!")
-                await self.handle_wake_word_activation()
+            # text = await self.backend_client.speech_to_text(audio_data)
+            # if text and self.wake_word.lower() in text.lower():
+            #     logger.info("Wake word detected!")
+            # print(text)
+            #     await self.handle_wake_word_activation()
 
         except Exception as e:
             logger.error(f"Error in wake word detection: {e}")
@@ -58,11 +62,13 @@ class VoiceProcessor:
             logger.info("Listening for voice command...")
 
             # Record user command
-            audio_data = await self.audio_handler.record_audio(duration=5.0)
+            audio_data = self.audio_handler.record_voice_until_silence()
+            # audio_data = await self.audio_handler.record_audio(duration=5.0)
             if not audio_data:
                 logger.warning("No audio data received")
                 return
 
+            await self.audio_handler.play_audio(audio_data)
             # Convert speech to text
             user_input = await self.backend_client.speech_to_text(audio_data)
             if not user_input:
@@ -83,6 +89,7 @@ class VoiceProcessor:
         except Exception as e:
             logger.error(f"Error processing voice command: {e}")
             await self.speak_response("Sorry, I encountered an error.")
+
 
     async def speak_response(self, text: str):
         """Convert text to speech and play it"""
@@ -190,6 +197,7 @@ class VoiceProcessor:
         elif "goodbye" in command_lower or "bye" in command_lower:
             return "Goodbye! Have a great day!"
 
+        return "I'm not sure how to help with that."
         # For other commands, use the backend LLM
-        else:
-            return await self.backend_client.generate_response(command)
+        # else:
+        #     return await self.backend_client.generate_response(command)

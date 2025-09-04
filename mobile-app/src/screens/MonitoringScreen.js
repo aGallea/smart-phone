@@ -27,18 +27,28 @@ const MonitoringScreen = () => {
 
   const fetchData = async () => {
     try {
+      // Add debugging breakpoint here
+      console.log('🔍 Fetching monitoring data...');
+      debugger; // This will trigger the debugger when debugging is active
+
       await Promise.all([getStatus(), getLogs()]);
+
+      console.log('✅ Data fetched successfully:', { status, logs });
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error('❌ Error fetching data:', error);
+      // Add another potential breakpoint for error debugging
+      debugger;
     } finally {
       setLoading(false);
     }
   };
 
   const onRefresh = async () => {
+    console.log('🔄 Refreshing monitoring data...');
     setRefreshing(true);
     await fetchData();
     setRefreshing(false);
+    console.log('✅ Refresh completed');
   };
 
   const getStatusColor = (isActive) => {

@@ -3,6 +3,7 @@ API client for communicating with backend server
 """
 
 import aiohttp
+import asyncio
 import json
 import logging
 from typing import Optional, Dict, Any
@@ -21,7 +22,15 @@ class BackendClient:
     async def connect(self):
         """Establish connection to backend server"""
         try:
-            self.session = aiohttp.ClientSession()
+            # Configure connector to limit connection reuse and handle keep-alive properly
+            connector = aiohttp.TCPConnector(
+                limit_per_host=1,  # Limit connections per host
+                enable_cleanup_closed=True,  # Clean up closed connections
+                keepalive_timeout=30,  # Keep-alive timeout
+                limit=10,  # Total connection pool limit
+            )
+
+            self.session = aiohttp.ClientSession(connector=connector)
             # Test connection
             async with self.session.get(f"{self.backend_url}/health") as response:
                 if response.status == 200:
@@ -57,25 +66,57 @@ class BackendClient:
             logger.error("Not connected to backend server")
             return None
 
+        if not audio_data:
+            logger.error("No audio data provided")
+            return None
+
+        if len(audio_data) == 0:
+            logger.error("Empty audio data provided")
+            return None
+
         try:
-            # Prepare multipart form data
+            # Prepare multipart form data with proper headers
             data = aiohttp.FormData()
             data.add_field(
                 "audio", audio_data, filename="audio.wav", content_type="audio/wav"
             )
 
+            # Add timeout and force connection close to avoid reuse issues
+            timeout = aiohttp.ClientTimeout(total=30)
+            headers = {"Connection": "close"}  # Force connection close
+
             async with self.session.post(
-                f"{self.backend_url}/api/stt", data=data
+                f"{self.backend_url}/api/stt",
+                data=data,
+                timeout=timeout,
+                headers=headers,
             ) as response:
                 if response.status == 200:
                     result = await response.json()
                     return result.get("text")
                 else:
-                    logger.error(f"STT request failed with status {response.status}")
+                    error_text = await response.text()
+                    logger.error(
+                        f"STT request failed with status {response.status}: {error_text}"
+                    )
                     return None
 
+        except aiohttp.ClientPayloadError as e:
+            logger.error(
+                f"Payload error in speech-to-text (possibly invalid audio data): {e}"
+            )
+            return None
+        except aiohttp.ClientConnectionError as e:
+            logger.error(f"Connection error in speech-to-text: {e}")
+            return None
+        except aiohttp.ClientError as e:
+            logger.error(f"Client error in speech-to-text: {e}")
+            return None
+        except asyncio.TimeoutError:
+            logger.error("Timeout error in speech-to-text request")
+            return None
         except Exception as e:
-            logger.error(f"Error in speech-to-text: {e}")
+            logger.error(f"Unexpected error in speech-to-text: {e}")
             return None
 
     async def text_to_speech(self, text: str) -> Optional[bytes]:
@@ -108,7 +149,7 @@ class BackendClient:
             return None
 
     async def generate_response(
-        self, user_input: str, context: Dict[str, Any] = None
+        self, user_input: str, context: Optional[Dict[str, Any]] = None
     ) -> Optional[str]:
         """
         Generate LLM response using backend API

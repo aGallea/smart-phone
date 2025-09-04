@@ -1,6 +1,6 @@
-# Backend Server - Smart Robot Assistant
+# Backend Server - J.A.R.V.I.S
 
-FastAPI server providing LLM operations for the smart robot system.
+FastAPI server providing LLM operations with J.A.R.V.I.S
 
 ## Features
 
@@ -159,7 +159,7 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 Create `/etc/systemd/system/smart-robot-backend.service`:
 ```ini
 [Unit]
-Description=Smart Robot Backend
+Description=J.A.R.V.I.S Backend
 After=network.target
 
 [Service]
