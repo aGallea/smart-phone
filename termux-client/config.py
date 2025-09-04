@@ -99,6 +99,10 @@ class Config:
         return self.get("wake_word_enabled", True)
 
     @property
+    def record_voice_until_silence(self) -> bool:
+        return self.get("record_voice_until_silence", True)
+
+    @property
     def wake_word(self) -> str:
         """Get wake word"""
         return self.get("wake_word", "hey robot")

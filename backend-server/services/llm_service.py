@@ -144,12 +144,30 @@ class LLMService:
                 context_str = f"Context: {context}"
                 messages.insert(1, {"role": "system", "content": context_str})
 
-            response = self.client.ChatCompletion.create(
-                model=self.config.get("llm.model", "gpt-3.5-turbo"),
-                messages=messages,
-                max_tokens=self.config.get("llm.max_tokens", 150),
-                temperature=self.config.get("llm.temperature", 0.7),
+            from openai import OpenAI
+# client = OpenAI()
+            client: OpenAI = self.client
+            response = await client.responses.create(
+                model=self.config.get("llm.model", "gpt-4.1-mini"),
+                # reasoning={"effort": "low"},
+                input=[
+                    {
+                        "role": "developer",
+                        "content": system_prompt,
+                    },
+                    {
+                        "role": "user",
+                        "content": user_input,
+                    }
+                ]
             )
+
+            # response = self.client.ChatCompletion.create(
+            #     model=self.config.get("llm.model", "gpt-3.5-turbo"),
+            #     messages=messages,
+            #     max_tokens=self.config.get("llm.max_tokens", 150),
+            #     temperature=self.config.get("llm.temperature", 0.7),
+            # )
 
             return response.choices[0].message.content.strip()
 

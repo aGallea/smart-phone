@@ -4,7 +4,9 @@
 # Audio handling - Multiple options for different systems
 # Try in order: pyaudio -> sounddevice -> simpleaudio
 sounddevice==0.4.6
-simpleaudio==1.0.4
+# Voice Activity Detection - Replaced with energy-based detection to avoid pkg_resources issues
+# webrtcvad==2.0.10  # Commented out - using simple energy-based VAD instead
+#simpleaudio==1.0.4
 numpy==1.26.4
 
 # Alternative: pyaudio (may fail on some systems)

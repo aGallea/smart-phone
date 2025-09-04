@@ -1,6 +1,6 @@
 """
-Smart Robot Backend Server
-FastAPI server providing LLM operations for the smart robot
+J.A.R.V.I.S Backend Server
+FastAPI server providing LLM operations with J.A.R.V.I.S
 """
 
 from fastapi import FastAPI, HTTPException, UploadFile, File
@@ -23,8 +23,8 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = FastAPI(
-    title="Smart Robot Backend",
-    description="Backend server for Smart Robot Assistant",
+    title="J.A.R.V.I.S Backend",
+    description="Backend server for J.A.R.V.I.S AI assistant",
     version="1.0.0",
 )
 
@@ -47,7 +47,7 @@ llm_service = LLMService(config)
 @app.on_event("startup")
 async def startup_event():
     """Initialize services on startup"""
-    logger.info("Starting Smart Robot Backend Server...")
+    logger.info("Starting J.A.R.V.I.S Backend Server...")
 
     # Initialize services
     await stt_service.initialize()
@@ -60,7 +60,7 @@ async def startup_event():
 @app.on_event("shutdown")
 async def shutdown_event():
     """Cleanup on shutdown"""
-    logger.info("Shutting down Smart Robot Backend Server...")
+    logger.info("Shutting down J.A.R.V.I.S Backend Server...")
 
     await stt_service.cleanup()
     await tts_service.cleanup()
@@ -70,7 +70,7 @@ async def shutdown_event():
 @app.get("/health")
 async def health_check():
     """Health check endpoint"""
-    return {"status": "healthy", "message": "Smart Robot Backend is running"}
+    return {"status": "healthy", "message": "J.A.R.V.I.S Backend is running"}
 
 
 @app.get("/api/status", response_model=StatusResponse)

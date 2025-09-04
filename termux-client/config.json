@@ -1,7 +1,8 @@
 {
-  "backend_url": "http://192.168.1.100:8000",
-  "wake_word_enabled": true,
-  "wake_word": "hey robot",
+  "backend_url": "http://localhost:8000",
+  "wake_word_enabled": false,
+  "record_voice_until_silence": true,
+  "wake_word": "JARVIS",
   "audio": {
     "sample_rate": 16000,
     "channels": 1,

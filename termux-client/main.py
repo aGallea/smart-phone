@@ -5,9 +5,7 @@ Main application that runs on old smartphone via Termux
 """
 
 import asyncio
-import json
 import logging
-from pathlib import Path
 
 from audio_handler import AudioHandler
 from api_client import BackendClient
@@ -24,8 +22,8 @@ logger = logging.getLogger(__name__)
 class SmartRobotClient:
     """Main client application for the smart robot assistant"""
 
-    def __init__(self):
-        self.config = Config()
+    def __init__(self, config_file="config.json"):
+        self.config = Config(config_file)
         self.audio_handler = AudioHandler()
         self.backend_client = BackendClient(self.config.backend_url)
         self.voice_processor = VoiceProcessor(self.audio_handler, self.backend_client)
@@ -57,6 +55,9 @@ class SmartRobotClient:
                 # Listen for wake word or continuous listening based on config
                 if self.config.wake_word_enabled:
                     await self.voice_processor.listen_for_wake_word()
+                if self.config.record_voice_until_silence:
+                    # self.audio_handler.record_voice_until_silence()
+                    await self.voice_processor.listen_for_wake_word()
                 else:
                     await self.voice_processor.process_voice_command()
 
@@ -85,7 +86,12 @@ class SmartRobotClient:
 
 async def main():
     """Main entry point"""
-    client = SmartRobotClient()
+    # Check for debug mode argument
+    import sys
+
+    config_file = "config_debug.json" if "--debug" in sys.argv else "config.json"
+
+    client = SmartRobotClient(config_file)
 
     try:
         await client.start()

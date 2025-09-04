@@ -2,6 +2,8 @@
 # Compatible with Python 3.8-3.12
 fastapi==0.116.1
 uvicorn==0.35.0
+numpy<2
+openai-whisper==20250625
 
 # Pydantic with fallback versions for Python 3.12 compatibility
 # Try these in order if build fails:
